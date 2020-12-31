@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * 文件工具
@@ -13,26 +14,25 @@ import java.io.IOException;
  * @info 文件工具
  * @date 2020/12/30 9:47
  */
-public class FileUtils {
+public class FileUtil {
 
     /**
      * 创建文件
      *
      * @author: Jacques Fry
      * @date: 2020/12/30 13:20
+     * @param sourceFile 源文件
+     * @param filePath 新文件路径
      */
-    @Test
-    public void createFile() {
-        String filePath = "D:/test/file";
-        String fileName = "a.txt";
+    public void createFile(File sourceFile,String filePath) {
         File file = new File(filePath);
-        if (file.mkdirs()) {
-            System.out.println("创建创建文件夹");
+        if (!file.getParentFile().exists()) {
+            // 创建文件夹
+            file.getParentFile().mkdir();
         }
-        file = new File(filePath, fileName);
         if (!file.exists()) {
             try {
-                System.out.println("创建文件");
+                // 创建文件
                 file.createNewFile();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -57,15 +57,25 @@ public class FileUtils {
      * @author: Jacques Fry
      * @date: 2020/12/30 13:20
      */
-    @Test
-    public void deleteFile() {
-        String filePath = "D:/test/file";
-        String fileName = "a.txt";
-        File file = new File(filePath, fileName);
-        if(file.exists()){
-            System.out.println("删除文件");
+    public void deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            // 删除文件
             file.delete();
         }
     }
+
+    /**
+     * 获取文件名
+     *
+     * @author: Jacques Fry
+     * @date: 2020/12/31 9:27
+     * @param fileType 文件类型
+     * @return java.lang.String
+     */
+    public String getFileName(String fileType){
+        return UUID.randomUUID().toString().replaceAll("-", "") + "."+fileType;
+    }
+
 
 }
