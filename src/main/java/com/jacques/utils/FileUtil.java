@@ -17,12 +17,12 @@ public class FileUtil {
     /**
      * 创建文件
      *
+     * @param sourceFile 源文件
+     * @param filePath   新文件路径
      * @author: Jacques Fry
      * @date: 2020/12/30 13:20
-     * @param sourceFile 源文件
-     * @param filePath 新文件路径
      */
-    public void createFile(File sourceFile,String filePath) {
+    public void createFile(File sourceFile, String filePath) {
         File file = new File(filePath);
         if (!file.getParentFile().exists()) {
             // 创建文件夹
@@ -55,7 +55,7 @@ public class FileUtil {
      * @author: Jacques Fry
      * @date: 2020/12/30 13:20
      */
-    public void deleteFile(String filePath) {
+    public static void deleteFile(String filePath) {
         File file = new File(filePath);
         if (file.exists()) {
             // 删除文件
@@ -66,14 +66,22 @@ public class FileUtil {
     /**
      * 获取文件名
      *
-     * @author: Jacques Fry
-     * @date: 2020/12/31 9:27
      * @param fileType 文件类型
      * @return java.lang.String
+     * @author: Jacques Fry
+     * @date: 2020/12/31 9:27
      */
-    public String getFileName(String fileType){
-        return UUID.randomUUID().toString().replaceAll("-", "") + "."+fileType;
+    public static String getFileName(String fileType) {
+        return UUID.randomUUID().toString().replaceAll("-", "") + "." + fileType;
     }
 
-
+    /**
+     * 获取文件后缀
+     * @param file
+     * @return
+     */
+    public static String getSuffix(File file) {
+        String fileName = file.getName();
+        return fileName.substring(fileName.lastIndexOf("."));
+    }
 }
